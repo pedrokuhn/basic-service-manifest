@@ -1,94 +1,65 @@
-apiVersion: apps/v1
-kind: Deployment
+{{- if .Values.env.config}}
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: {{ .Values.name }}
-spec:
-  replicas: {{ .Values.replicas }}
-  selector:
-    matchLabels:
-      app: {{ .Values.name }}
-  template:
-    metadata:
-      labels:
-        app: {{ .Values.name }}
-    spec:
-      containers:
-        - name: {{ .Values.name }}
-          image: redis
-          env:
-            - name: SECRET_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secretName }}
-                  key: 'username'
-            - name: SECRET_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secretName }}
-                  key: 'password'
-            - name: RANDOM_VERSION
-              value: '0.0.7'
-
+  name: {{.Values.name}}
+data:
+{{.Values.env.config | toYaml | indent 2}}
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: {{ .Values.name }}-2
-spec:
-  replicas: {{ .Values.replicas }}
-  selector:
-    matchLabels:
-      app: {{ .Values.name }}
-  template:
-    metadata:
-      labels:
-        app: {{ .Values.name }}
-    spec:
-      containers:
-        - name: {{ .Values.name }}
-          image: redis
-          env:
-            - name: SECRET_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secretName }}
-                  key: 'username'
-            - name: SECRET_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secretName }}
-                  key: 'password'
-            - name: RANDOM_VERSION
-              value: '0.0.7'
+{{- end}}
 
+{{- if .Values.env.secrets}}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{.Values.name}}
+stringData:
+{{.Values.env.secrets | toYaml | indent 2}}
 ---
+{{- end}}
+
+{{- if .Values.dockercfg}}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{.Values.name}}-dockercfg
+  annotations:
+    harness.io/skip-versioning: true
+data:
+  .dockercfg: {{.Values.dockercfg}}
+type: kubernetes.io/dockercfg
+---
+{{- end}}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.name }}-3
+  name: {{.Values.name}}-deployment
 spec:
-  replicas: {{ .Values.replicas }}
+  replicas: {{int .Values.replicas}}
   selector:
     matchLabels:
-      app: {{ .Values.name }}
+      app: {{.Values.name}}
   template:
     metadata:
       labels:
-        app: {{ .Values.name }}
+        app: {{.Values.name}}
     spec:
+      {{- if .Values.dockercfg}}
+      imagePullSecrets:
+      - name: {{.Values.name}}-dockercfg
+      {{- end}}
       containers:
-        - name: {{ .Values.name }}
-          image: redis
-          env:
-            - name: SECRET_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secretName }}
-                  key: 'username'
-            - name: SECRET_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secretName }}
-                  key: 'password'
-            - name: RANDOM_VERSION
-              value: '0.0.7'
+      - name: {{.Values.name}}
+        image: {{.Values.image}}
+        {{- if or .Values.env.config .Values.env.secrets}}
+        envFrom:
+        {{- if .Values.env.config}}
+        - configMapRef:
+            name: {{.Values.name}}
+        {{- end}}
+        {{- if .Values.env.secrets}}
+        - secretRef:
+            name: {{.Values.name}}
+        {{- end}}
+        {{- end}}
