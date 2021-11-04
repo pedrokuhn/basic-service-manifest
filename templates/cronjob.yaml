@@ -1,8 +1,8 @@
-{{ range $key, $value := .cronJobs }}
+{{ range $key, $value := .Values.cronJobs }}
 apiVersion: batch/v1
 kind: CronJob
 spec:
-  schedule: "*/1 * * * *"
+  schedule: {{ .value.schedule }}
   jobTemplate:
     spec:
       template:
