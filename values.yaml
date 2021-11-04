@@ -1,24 +1,12 @@
-name: harness-example
+name: new-app-harness-example
 replicas: 1
 
-schedule: "*/1 * * * *"
+secretName: my-secret
 
-cronJobs:
-  1: job1
-  2: job2
-  3: job3
-
-image: ${artifact.metadata.image}
-dockercfg: ${artifact.source.dockerconfig}
 createNamespace: true
 namespace: ${infra.kubernetes.namespace}
 
-serviceType: LoadBalancer
-servicePort: 80
-serviceTargetPort: 80
-
 env:
-  config:
-    key1: value1
   secrets:
-    key2: value2
+    username: user
+    password: pass
