@@ -8,10 +8,10 @@ cronJobs:
   2: job2
   3: job3
 
-image: ${artifact.metadata.image}
-dockercfg: ${artifact.source.dockerconfig}
+image: <+artifact.image>
+dockercfg: <+artifact.imagePullSecret>
 createNamespace: true
-namespace: ${infra.kubernetes.namespace}
+namespace: <+infra.namespace>
 
 serviceType: LoadBalancer
 servicePort: 80
