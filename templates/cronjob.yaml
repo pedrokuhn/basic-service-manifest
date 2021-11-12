@@ -1,19 +1,19 @@
-{{ range $key, $value := .Values.cronJobs }}
-apiVersion: batch/v1
-kind: CronJob
-spec:
-  schedule: "*/1 * * * *"
-  jobTemplate:
-    spec:
-      template:
-        spec:
-          containers:
-          - name: hello
-            image: busybox
-            imagePullPolicy: IfNotPresent
-            command:
-            - /bin/sh
-            - -c
-            - date; echo Hello from the Kubernetes cluster
-          restartPolicy: OnFailure
-{{end}}
+# {{ range $key, $value := .Values.cronJobs }}
+# apiVersion: batch/v1
+# kind: CronJob
+# spec:
+#   schedule: "*/1 * * * *"
+#   jobTemplate:
+#     spec:
+#       template:
+#         spec:
+#          containers:
+#          - name: hello
+#            image: busybox
+#            imagePullPolicy: IfNotPresent
+#            command:
+#            - /bin/sh
+#            - -c
+#            - date; echo Hello from the Kubernetes cluster
+#          restartPolicy: OnFailure
+#{{end}}
