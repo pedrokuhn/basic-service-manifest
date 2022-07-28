@@ -1,12 +1,12 @@
-name: new-app-harness-example
+name: new-app-harness-ng
 replicas: 1
 
 secretName: my-secret
 
 createNamespace: true
-namespace: ${infra.kubernetes.namespace}
+namespace: <+infra.namespace>
 
 env:
   secrets:
-    username: user
-    password: pass
+    username: user_name
+    password: pass_for_user_name
