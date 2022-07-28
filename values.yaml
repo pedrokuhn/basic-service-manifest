@@ -11,4 +11,4 @@ env:
     username: user_name
     password: pass_for_user_name
 
-secret_from_harness: <+secrets.getValue(account.original<+project.name>crypto<+env.name>)>
+secret_from_harness: <+secrets.getValue(<+pipeline.stages.Rolling_Deploy.spec.execution.steps.Prepare_Secret.output.outputVariables.SECRET_NAME>)>
