@@ -11,5 +11,5 @@ env:
     username: user_name
     password: pass_for_user_name
 
-secret_from_harness: <+secrets.getValue(<+pipeline.stages.Rolling_Deployment.spec.execution.steps.ascdasd.output.outputVariables.SECRET_NAME>)>
+secret_from_harness: tst
 crytpoAlgorithm: PBEWITHMD5ANDDES
