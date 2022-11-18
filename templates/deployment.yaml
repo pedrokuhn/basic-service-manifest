@@ -35,7 +35,7 @@ kind: Deployment
 metadata:
   name: {{ .Values.name }}-2
 spec:
-  replicas: {{ .Values.replicas }}
+  replicas: {{ .Values.replicasNew }}
   selector:
     matchLabels:
       app: {{ .Values.name }}
@@ -67,7 +67,7 @@ kind: Deployment
 metadata:
   name: {{ .Values.name }}-3
 spec:
-  replicas: {{ .Values.replicas }}
+  replicas: {{ .Values.replicasNewNew }}
   selector:
     matchLabels:
       app: {{ .Values.name }}
