@@ -6,7 +6,7 @@ replicasNewNew: 2
 secretName: my-secret
 
 createNamespace: true
-namespace: pedro
+namespace: pedro-canary
 
 env:
   secrets:
