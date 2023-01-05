@@ -33,7 +33,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotation:
+  annotations:
     harness.io/direct-apply: "true"
   name: {{ .Values.name }}-2
 spec:
@@ -67,7 +67,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotation:
+  annotations:
     harness.io/direct-apply: "true"
   name: {{ .Values.name }}-3
 spec:
