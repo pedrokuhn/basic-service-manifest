@@ -9,4 +9,4 @@ namespace: ${infra.kubernetes.namespace}
 env:
   secrets:
     username: user
-    password: pass
+    password: passs
