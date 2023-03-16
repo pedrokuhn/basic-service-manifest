@@ -1,0 +1,47 @@
+# harness.io/skip-file-for-deploy
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  namespace: pedro
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: 'HTTP'
+    nginx.ingress.kubernetes.io/add-x-forwarded-proto: 'true'
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - google.com.br
+      secretName: ingress-tls-csi
+  rules:
+    - host: google.com.br
+      http:
+        paths:
+          - path: /DEVEnterprise
+            pathType: Prefix
+            backend:
+              service:
+                name: maintainence-service
+                port:
+                  number: 8080
+          - path: /DEVOrigination
+            pathType: Prefix
+            backend:
+              service:
+                name: maintainence-service
+                port:
+                  number: 8080
+          - path: /DEVSelfService
+            pathType: Prefix
+            backend:
+              service:
+                name: maintainence-service
+                port:
+                  number: 8080
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: maintainence-service
+                port:
+                  number: 8080
