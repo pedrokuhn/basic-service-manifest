@@ -18,14 +18,29 @@ spec:
         image: nginx:1.21.6-alpine
         ports:
         - containerPort: 80
+        volumeMounts:
+          - name: mnt
+            mountPath: /usr/share/nginx/html/index.html
+            subPath: file-from-cfgmap
 ###### Mount the config map
       volumes:
       - emptyDir: {}
         name: log-storage
-#       - name: mnt
-#         configMap:
-#           name: nginx-cfgmap
-#         volumeMounts:
-#           - name: mnt
-#             mountPath: /usr/share/nginx/html/index.html
-#             subPath: file-from-cfgmap
+      - name: mnt
+        configMap:
+          name: nginx-cfgmap
+
+
+# Source: backend-log-server/templates/hpa.yaml
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: golden-qa-backend-log-server
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: nginx
+  minReplicas: 2
+  maxReplicas: 2
+  targetCPUUtilizationPercentage: 70
