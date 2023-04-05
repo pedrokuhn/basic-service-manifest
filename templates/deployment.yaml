@@ -29,18 +29,3 @@ spec:
       - name: mnt
         configMap:
           name: nginx-cfgmap
-
-
-# Source: backend-log-server/templates/hpa.yaml
-apiVersion: autoscaling/v1
-kind: HorizontalPodAutoscaler
-metadata:
-  name: golden-qa-backend-log-server
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: nginx
-  minReplicas: 2
-  maxReplicas: 2
-  targetCPUUtilizationPercentage: 70
