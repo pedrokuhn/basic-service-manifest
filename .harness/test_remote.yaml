@@ -75,7 +75,7 @@ pipeline:
                         - name: ELASTIC_APM_VERIFY_SERVER_CERT
                           type: String
                           value: <+input>
-                        - name: tag
+                        - name: tag_new
                           type: String
                           value: <+input>
               environment:
