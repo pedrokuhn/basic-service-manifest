@@ -6,32 +6,40 @@ pipeline:
   tags: {}
   stages:
     - stage:
-        name: Test Stage Template
-        identifier: Test_Stage_Template
+        name: test
+        identifier: test
         template:
-          templateRef: StageTemplate
+          templateRef: account.DOE_K8S_Rolling_Deploy_Stage
           versionLabel: "1"
           templateInputs:
             type: Deployment
             spec:
-              service:
-                serviceInputs:
-                  serviceDefinition:
-                    type: Kubernetes
-                    spec:
-                      artifacts:
-                        primary:
-                          sources:
-                            - identifier: _Primarytest
-                              type: DockerRegistry
-                              spec:
-                                tag: <+input>
-                      variables:
-                        - name: PULSAR_SERVICE_URL
-                          type: String
-                          value: "<+input>.allowedValues(pulsar://dev-pulsar-proxy.dev-pulsar.svc.cluster.local:6650,pulsar://staging-pulsar-proxy.staging-pulsar.svc.cluster.local:6650,pulsar://prod-pulsar-proxy.prod-pulsar.svc.cluster.local:6650)"
               environment:
                 environmentRef: <+input>
                 environmentInputs: <+input>
-                serviceOverrideInputs: <+input>
                 infrastructureDefinitions: <+input>
+            variables:
+              - name: context
+                type: String
+                value: <+input>
+              - name: serviceID
+                type: String
+                value: <+input>
+              - name: githubBranch
+                type: String
+                value: <+input>
+              - name: threadfixProjectName
+                type: String
+                value: <+input>
+              - name: gateID
+                type: String
+                value: <+input>
+              - name: policyID
+                type: String
+                value: <+input>
+              - name: crNumber
+                type: String
+                value: <+input>
+              - name: crOverride
+                type: String
+                value: <+input>
