@@ -22,62 +22,14 @@ pipeline:
                       artifacts:
                         primary:
                           sources:
-                            - identifier: Primary
+                            - identifier: _Primarytest
                               type: DockerRegistry
                               spec:
                                 tag: <+input>
                       variables:
-                        - name: APOLLO_KEY
-                          type: Secret
-                          value: <+input>
-                        - name: DATABASE_HOSTNAME
-                          type: Secret
-                          value: <+input>
-                        - name: DATABASE_NAME
-                          type: Secret
-                          value: <+input>
-                        - name: DATABASE_PASSWORD
-                          type: Secret
-                          value: <+input>
-                        - name: DATABASE_PORT
-                          type: String
-                          value: <+input>
-                        - name: DATABASE_USERNAME
-                          type: Secret
-                          value: <+input>
-                        - name: APOLLO_GRAPH_ID
-                          type: String
-                          value: <+input>
-                        - name: APOLLO_GRAPH_VARIANT
-                          type: String
-                          value: <+input>
-                        - name: NODE_ENV
-                          type: String
-                          value: <+input>
-                        - name: PORT
-                          type: String
-                          value: <+input>
                         - name: PULSAR_SERVICE_URL
                           type: String
-                          value: <+input>.allowedValues(pulsar://dev-pulsar-proxy.dev-pulsar.svc.cluster.local:6650,pulsar://staging-pulsar-proxy.staging-pulsar.svc.cluster.local:6650,pulsar://prod-pulsar-proxy.prod-pulsar.svc.cluster.local:6650)
-                        - name: SERVICE_NAME
-                          type: String
-                          value: <+input>
-                        - name: ELASTIC_APM_API_KEY
-                          type: Secret
-                          value: <+input>
-                        - name: ELASTIC_APM_LOG_LEVEL
-                          type: String
-                          value: <+input>
-                        - name: ELASTIC_APM_SERVER_URL
-                          type: String
-                          value: <+input>
-                        - name: ELASTIC_APM_VERIFY_SERVER_CERT
-                          type: String
-                          value: <+input>
-                        - name: tag_new
-                          type: String
-                          value: <+input>
+                          value: "<+input>.allowedValues(pulsar://dev-pulsar-proxy.dev-pulsar.svc.cluster.local:6650,pulsar://staging-pulsar-proxy.staging-pulsar.svc.cluster.local:6650,pulsar://prod-pulsar-proxy.prod-pulsar.svc.cluster.local:6650)"
               environment:
                 environmentRef: <+input>
                 environmentInputs: <+input>
