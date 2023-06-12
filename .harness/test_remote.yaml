@@ -34,7 +34,7 @@ pipeline:
               - name: gateID
                 type: String
                 value: <+input>
-              - name: policyID
+              - name: policyID_2
                 type: String
                 value: <+input>
               - name: crNumber
