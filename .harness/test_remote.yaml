@@ -19,7 +19,7 @@ pipeline:
                 environmentInputs: <+input>
                 infrastructureDefinitions: <+input>
             variables:
-              - name: context_2
+              - name: context
                 type: String
                 value: <+input>
               - name: serviceID
