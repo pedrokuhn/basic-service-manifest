@@ -1,5 +1,5 @@
 pipeline:
-  name: test remote
+  name: test remote new name
   identifier: test_remote
   projectIdentifier: Project_V2
   orgIdentifier: default
