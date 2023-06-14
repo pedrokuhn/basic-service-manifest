@@ -21,28 +21,28 @@ pipeline:
             variables:
               - name: context
                 type: String
-                value: ""
+                value: <+input>
               - name: serviceID
                 type: String
-                value: ""
+                value: <+input>
               - name: githubBranch
                 type: String
-                value: ""
+                value: <+input>
               - name: threadfixProjectName
                 type: String
-                value: ""
+                value: <+input>
               - name: gateID
                 type: String
-                value: ""
+                value: <+input>
               - name: policyID
                 type: String
-                value: ""
+                value: <+input>
               - name: crNumber
                 type: String
-                value: ""
+                value: <+input>
               - name: crOverride
                 type: String
-                value: ""
+                value: <+input>
               - name: newVariable
                 type: String
-                value: ""
+                value: <+input>
