@@ -40,9 +40,3 @@ pipeline:
               - name: crNumber
                 type: String
                 value: <+input>
-              - name: crOverride
-                type: String
-                value: <+input>
-              - name: newVariable
-                type: String
-                value: <+input>
